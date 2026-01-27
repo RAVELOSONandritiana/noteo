@@ -15,6 +15,13 @@
 				class="relative rounded-[2rem] border border-white/20 bg-white/70 p-6 shadow-2xl backdrop-blur-xl sm:p-8 dark:border-white/10 dark:bg-gray-900/70"
 			>
 				<div class="mx-auto max-w-xl">
+					<div class="mb-6 text-center">
+						<h1
+							class="text-[10px] font-black tracking-[0.4em] text-gray-400 uppercase dark:text-gray-500"
+						>
+							Sign In
+						</h1>
+					</div>
 					<form action="#" method="POST" class="space-y-4">
 						<div>
 							<label
