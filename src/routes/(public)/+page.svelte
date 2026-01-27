@@ -2,8 +2,38 @@
 	import { onMount } from 'svelte';
 	let mounted = $state(false);
 
+	let words = ['Depth.', 'Context.', 'Details.', 'Insights.'];
+	let currentWordIndex = $state(0);
+	let currentText = $state('');
+	let isDeleting = $state(false);
+	let typeSpeed = $state(150);
+
+	function type() {
+		const fullWord = words[currentWordIndex];
+
+		if (isDeleting) {
+			currentText = fullWord.substring(0, currentText.length - 1);
+			typeSpeed = 100;
+		} else {
+			currentText = fullWord.substring(0, currentText.length + 1);
+			typeSpeed = 200;
+		}
+
+		if (!isDeleting && currentText === fullWord) {
+			isDeleting = true;
+			typeSpeed = 2000; // Pause at end
+		} else if (isDeleting && currentText === '') {
+			isDeleting = false;
+			currentWordIndex = (currentWordIndex + 1) % words.length;
+			typeSpeed = 500;
+		}
+
+		setTimeout(type, typeSpeed);
+	}
+
 	onMount(() => {
 		mounted = true;
+		type();
 	});
 </script>
 
@@ -45,10 +75,7 @@
 				<h1
 					class="mx-auto max-w-4xl text-5xl leading-[1.15] font-black tracking-tight text-gray-900 sm:text-6xl dark:text-white"
 				>
-					Note the <span
-						class="bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 bg-clip-text text-transparent"
-						>Essential</span
-					>. <br />Let AI handle the Depth.
+					Note the <span class="bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 bg-clip-text text-transparent">Essential</span>. <br />Let AI handle the <span class="text-blue-600 dark:text-blue-400 border-r-4 border-blue-600 dark:border-blue-400 pr-1 animate-pulse">{currentText}</span>
 				</h1>
 				<p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-gray-600 dark:text-gray-400">
 					Focus on the speaker, not the keyboard. Capture key points during live sessions and let
