@@ -45,14 +45,14 @@
 				<h1
 					class="mx-auto max-w-4xl text-5xl leading-[1.15] font-black tracking-tight text-gray-900 sm:text-6xl dark:text-white"
 				>
-					Master your <span
+					Note the <span
 						class="bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 bg-clip-text text-transparent"
-						>Workflow</span
-					> with AI intelligence.
+						>Essential</span
+					>. <br />Let AI handle the Depth.
 				</h1>
 				<p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-gray-600 dark:text-gray-400">
-					Noteo transforms your messy lectures into structured knowledge. Get instant explanations,
-					valid examples, and deep definitions while you stay focused on the speaker.
+					Focus on the speaker, not the keyboard. Capture key points during live sessions and let
+					Noteo's intelligence complete the rest on demand.
 				</p>
 				<div class="mt-12 flex flex-col items-center justify-center gap-6 sm:flex-row">
 					<a
@@ -103,7 +103,7 @@
 			<div class="mb-24 text-center">
 				<h2 class="mb-4 text-sm font-bold tracking-widest text-blue-600 uppercase">The Process</h2>
 				<h3 class="text-4xl font-extrabold text-gray-900 sm:text-5xl dark:text-white">
-					Three steps to mastery
+					From fragment to perfection
 				</h3>
 			</div>
 
@@ -113,7 +113,7 @@
 					class="absolute top-1/2 left-0 -z-10 hidden h-0.5 w-full translate-y-[-50%] bg-gray-100 md:block dark:bg-gray-800"
 				></div>
 
-				{#each [{ step: '01', title: 'Capture', desc: 'Type naturally or record your audio. Our AI understands the context in real-time.', icon: '✍️' }, { step: '02', title: 'Enhance', desc: 'Identify complex terms. AI adds definitions, examples and depth automatically.', icon: '🧠' }, { step: '03', title: 'Review', desc: 'Get AI-generated summaries and flashcards to prep for your exams.', icon: '🚀' }] as item}
+				{#each [{ step: '01', title: 'Identify', desc: 'Note down only the core concepts and unique insights as they happen in real-time.', icon: '✍️' }, { step: '02', title: 'Request', desc: 'Simply ask the AI to expand on definitions or provide complex examples for your fragments.', icon: '🧠' }, { step: '03', title: 'Integrate', desc: 'Review a complete, high-fidelity set of notes that feels like you wrote every word.', icon: '🚀' }] as item}
 					<div
 						class="relative rounded-3xl border border-gray-100 bg-white p-8 shadow-xl shadow-gray-200/50 transition-transform hover:-translate-y-2 dark:border-gray-800 dark:bg-gray-900 dark:shadow-none"
 					>

@@ -95,8 +95,8 @@
 						>
 					</div>
 					<p class="mb-8 max-w-sm text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-						Empowering the next generation of learners with world-class AI note-taking tools. Join
-						our community of 50,000+ students and professionals.
+						Note the essential. Let AI handle the depth. Noteo is a free, open-source companion
+						designed to liberate your attention during high-stakes learning.
 					</p>
 
 					<div class="max-w-md">

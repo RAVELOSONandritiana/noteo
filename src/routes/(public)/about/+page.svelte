@@ -24,14 +24,14 @@
 				<h1
 					class="mb-6 text-4xl font-black tracking-tight text-gray-900 sm:text-5xl dark:text-white"
 				>
-					Recent, <span
+					Liberate your <span
 						class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
-						>Free & Open Source</span
+						>Attention</span
 					>.
 				</h1>
 				<p class="text-base leading-7 font-medium text-gray-600 dark:text-gray-400">
-					Noteo is a collaborative study project born from the desire to leverage modern AI to
-					actually help students focus on listening rather than frantic writing.
+					Noteo is built on the belief that during a lecture or conference, your brain should be
+					synthesizing ideas, not struggling to transcribe words.
 				</p>
 			</div>
 		</div>
@@ -43,11 +43,12 @@
 			<div class="grid grid-cols-1 items-center gap-16 md:grid-cols-2">
 				<div class="prose max-w-none prose-blue dark:prose-invert">
 					<h2 class="mb-6 text-3xl font-black text-gray-900 dark:text-white">
-						A Study Project with Heart
+						Synthesize, Don't Transcribe
 					</h2>
 					<p class="mb-6 text-lg leading-relaxed text-gray-600 dark:text-gray-400">
-						We started Noteo in 2026 as a practical investigation into human-AI collaboration in
-						educational environments. Our goal isn't profit—it's understanding and accessibility.
+						We started Noteo in 2026 as a practical investigation into human-AI collaboration. Our
+						goal is to ensure you never miss a revelation because you were too busy typing a
+						definition.
 					</p>
 					<ul class="space-y-4">
 						<li class="flex gap-3">
