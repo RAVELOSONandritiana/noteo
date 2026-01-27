@@ -75,7 +75,14 @@
 				<h1
 					class="mx-auto max-w-4xl text-5xl leading-[1.15] font-black tracking-tight text-gray-900 sm:text-6xl dark:text-white"
 				>
-					Note the <span class="bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 bg-clip-text text-transparent">Essential</span>. <br />Let AI handle the <span class="text-blue-600 dark:text-blue-400 border-r-4 border-blue-600 dark:border-blue-400 pr-1 animate-pulse">{currentText}</span>
+					Note the <span
+						class="bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 bg-clip-text text-transparent"
+						>Essential</span
+					>. <br />Let AI handle the
+					<span
+						class="animate-pulse border-r-4 border-blue-600 pr-1 text-blue-600 dark:border-blue-400 dark:text-blue-400"
+						>{currentText}</span
+					>
 				</h1>
 				<p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-gray-600 dark:text-gray-400">
 					Focus on the speaker, not the keyboard. Capture key points during live sessions and let
@@ -83,7 +90,7 @@
 				</p>
 				<div class="mt-12 flex flex-col items-center justify-center gap-6 sm:flex-row">
 					<a
-						href="/signup"
+						href="/auth/signup"
 						class="group relative flex items-center gap-2 overflow-hidden rounded-2xl bg-blue-600 px-10 py-5 font-bold text-white shadow-2xl shadow-blue-500/40 transition-all hover:scale-105 hover:bg-blue-700 active:scale-95"
 					>
 						<div
@@ -306,7 +313,7 @@
 					Join 50,000+ students already using Noteo to master their education.
 				</p>
 				<a
-					href="/signup"
+					href="/auth/signup"
 					class="relative inline-flex rounded-2xl bg-white px-12 py-5 font-black text-blue-600 shadow-xl transition-transform hover:scale-105 active:scale-95"
 				>
 					Start for Free Today

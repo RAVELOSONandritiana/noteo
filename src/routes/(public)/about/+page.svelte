@@ -65,10 +65,93 @@
 						</li>
 					</ul>
 				</div>
+				<!-- Level God Knowledge Mesh Visual -->
 				<div
-					class="relative flex aspect-video items-center justify-center rounded-3xl border border-gray-200 bg-gray-100 text-5xl font-black text-gray-300 italic shadow-inner dark:border-gray-800 dark:bg-gray-900 dark:text-gray-700"
+					class="group relative aspect-video overflow-hidden rounded-[2.5rem] border border-white/5 bg-gray-950 shadow-2xl"
 				>
-					COLLABORATIVE
+					<!-- Deep Background Pulsing -->
+					<div
+						class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.15),transparent)] transition-all duration-1000 group-hover:scale-110"
+					></div>
+					<div
+						class="absolute -top-1/2 -left-1/2 h-full w-full animate-pulse rounded-full bg-blue-500/10 blur-[120px]"
+					></div>
+					<div
+						class="absolute -right-1/2 -bottom-1/2 h-full w-full animate-pulse rounded-full bg-purple-500/10 blur-[120px]"
+						style="animation-delay: 2s"
+					></div>
+
+					<!-- Ethereal SVG Mesh -->
+					<svg
+						class="absolute inset-0 h-full w-full overflow-visible p-12 opacity-40 transition-opacity duration-1000 group-hover:opacity-60"
+						viewBox="0 0 400 300"
+					>
+						<defs>
+							<filter id="node-glow">
+								<feGaussianBlur stdDeviation="3" result="glow" />
+								<feMerge>
+									<feMergeNode in="glow" />
+									<feMergeNode in="glow" />
+									<feMergeNode in="SourceGraphic" />
+								</feMerge>
+							</filter>
+						</defs>
+
+						<!-- Dynamic Connections -->
+						<g class="stroke-blue-400/20" stroke-width="1.5">
+							<line x1="80" y1="60" x2="200" y2="150" class="mesh-connection" />
+							<line x1="320" y1="80" x2="200" y2="150" class="mesh-connection" />
+							<line x1="120" y1="240" x2="200" y2="150" class="mesh-connection" />
+							<line x1="340" y1="220" x2="200" y2="150" class="mesh-connection" />
+							<line x1="80" y1="60" x2="320" y2="80" class="mesh-connection" />
+						</g>
+
+						<!-- Floating Knowledge Nodes -->
+						<g filter="url(#node-glow)">
+							<circle
+								cx="80"
+								cy="60"
+								r="4"
+								class="node-float fill-blue-400"
+								style="animation-delay: 0s"
+							/>
+							<circle
+								cx="320"
+								cy="80"
+								r="5"
+								class="node-float fill-indigo-400"
+								style="animation-delay: 1.5s"
+							/>
+							<circle
+								cx="120"
+								cy="240"
+								r="4"
+								class="node-float fill-purple-400"
+								style="animation-delay: 3s"
+							/>
+							<circle
+								cx="340"
+								cy="220"
+								r="6"
+								class="node-float fill-cyan-400"
+								style="animation-delay: 0.8s"
+							/>
+							<circle cx="200" cy="150" r="10" class="node-pulse fill-white" />
+						</g>
+					</svg>
+
+					<!-- Central High-Impact Label -->
+					<div class="absolute inset-0 flex items-center justify-center">
+						<div
+							class="rounded-3xl border border-white/10 bg-white/[0.03] px-12 py-6 shadow-2xl backdrop-blur-md transition-all duration-700 group-hover:scale-110 group-hover:border-white/20 group-hover:bg-white/[0.07]"
+						>
+							<h3
+								class="bg-gradient-to-br from-white via-blue-100 to-blue-300 bg-clip-text text-4xl font-black tracking-[0.2em] text-transparent uppercase italic mix-blend-overlay"
+							>
+								Collaborative
+							</h3>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -118,3 +201,33 @@
 		</div>
 	</section>
 </div>
+
+<style>
+	@keyframes node-float {
+		0%,
+		100% {
+			transform: translate(0, 0);
+		}
+		50% {
+			transform: translate(10px, -15px);
+		}
+	}
+	.node-float {
+		animation: node-float 6s ease-in-out infinite;
+	}
+	@keyframes node-pulse {
+		0%,
+		100% {
+			transform: scale(1);
+			opacity: 0.8;
+		}
+		50% {
+			transform: scale(1.2);
+			opacity: 1;
+		}
+	}
+	.node-pulse {
+		animation: node-pulse 3s ease-in-out infinite;
+		transform-origin: center;
+	}
+</style>

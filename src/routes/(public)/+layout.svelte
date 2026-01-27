@@ -55,7 +55,7 @@
 			<div class="flex items-center gap-4">
 				<ThemeToggle />
 				<a
-					href="/signup"
+					href="/auth/signup"
 					class="hidden items-center justify-center rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition-all hover:bg-blue-700 hover:shadow-blue-500/30 active:scale-95 sm:inline-flex"
 				>
 					Get Started
