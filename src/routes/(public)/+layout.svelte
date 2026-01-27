@@ -20,29 +20,34 @@
 >
 	<!-- Navigation -->
 	<header
-		class="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-800 dark:bg-gray-950/80"
+		class="sticky top-0 z-50 w-full border-b border-gray-200/50 bg-white/70 backdrop-blur-xl dark:border-gray-800/50 dark:bg-gray-950/70"
 	>
 		<div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-			<a href="/" class="flex items-center gap-2 transition-opacity hover:opacity-80">
+			<a href="/" class="flex items-center gap-2.5 transition-all hover:opacity-80 active:scale-95">
 				<div
-					class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 font-bold text-white shadow-lg shadow-blue-500/20"
+					class="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 font-bold text-white shadow-lg shadow-blue-500/25"
 				>
 					N
 				</div>
-				<span class="text-xl font-bold tracking-tight">Noteo</span>
+				<span class="text-xl font-black tracking-tight text-gray-900 dark:text-white">Noteo</span>
 			</a>
 
-			<nav class="hidden items-center gap-8 md:flex">
+			<nav class="hidden items-center gap-1 md:flex">
 				{#each navLinks as link}
 					<a
 						href={link.href}
-						class="text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400 {isActive(
+						class="relative px-4 py-2 text-sm font-bold transition-all hover:text-blue-600 dark:hover:text-blue-400 {isActive(
 							link.href
 						)
 							? 'text-blue-600 dark:text-blue-400'
-							: 'text-gray-600 dark:text-gray-400'}"
+							: 'text-gray-500 dark:text-gray-400'}"
 					>
 						{link.label}
+						{#if isActive(link.href)}
+							<span
+								class="absolute right-4 bottom-0 left-4 h-0.5 rounded-full bg-blue-600 dark:bg-blue-400"
+							></span>
+						{/if}
 					</a>
 				{/each}
 			</nav>
@@ -51,7 +56,7 @@
 				<ThemeToggle />
 				<a
 					href="/signup"
-					class="hidden items-center justify-center rounded-full bg-blue-600 px-6 py-2 text-sm font-semibold text-white transition-all hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/30 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none active:scale-95 sm:inline-flex"
+					class="hidden items-center justify-center rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition-all hover:bg-blue-700 hover:shadow-blue-500/30 active:scale-95 sm:inline-flex"
 				>
 					Get Started
 				</a>
