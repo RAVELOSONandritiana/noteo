@@ -205,63 +205,35 @@
 		</div>
 	</section>
 
-	<!-- Pricing Section -->
-	<section id="pricing" class="bg-gray-50 py-32 dark:bg-gray-900/30">
-		<div class="mx-auto max-w-7xl px-4">
-			<div class="mb-20 text-center">
-				<h2 class="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
-					Simple, transparent pricing
-				</h2>
-				<p class="text-gray-600 dark:text-gray-400">Start for free and upgrade as you grow.</p>
+	<!-- Open Source Section -->
+	<section id="open-source" class="bg-gray-50 py-32 dark:bg-gray-900/30">
+		<div class="mx-auto max-w-7xl px-4 text-center">
+			<div
+				class="mb-6 inline-flex items-center gap-2 rounded-full bg-green-100 px-3 py-1 text-xs font-bold text-green-700 uppercase dark:bg-green-900/30 dark:text-green-300"
+			>
+				100% Free & Open Source
 			</div>
-
-			<div class="grid grid-cols-1 gap-8 md:grid-cols-3">
-				{#each [{ name: 'Starter', price: '0', features: ['3 AI Enhancements / day', 'Cloud Sync', 'Export to PDF'], btn: 'Get Started' }, { name: 'Pro Student', price: '9', features: ['Unlimited AI Power', 'Priority Support', 'Diagram Generator', 'Advanced Analytics'], btn: 'Go Pro', featured: true }, { name: 'University', price: '49', features: ['Team Workspace', 'Custom Org Admin', 'API Access', 'Dedicated Account Manager'], btn: 'Contact Sales' }] as plan}
-					<div
-						class="relative rounded-3xl border bg-white p-10 dark:bg-gray-950 {plan.featured
-							? 'border-blue-600 ring-4 ring-blue-600/10'
-							: 'border-gray-100 dark:border-gray-800'} transition-all hover:shadow-2xl"
+			<h2 class="mb-6 text-4xl font-black text-balance text-gray-900 dark:text-white">
+				Built by the community, <br />for the community.
+			</h2>
+			<p class="mx-auto mb-12 max-w-2xl text-lg text-gray-600 dark:text-gray-400">
+				Noteo is a study project dedicated to making education more accessible. We believe that
+				learning tools should be free, open, and collaborative.
+			</p>
+			<div class="flex justify-center gap-4">
+				<a
+					href="https://github.com"
+					class="flex items-center gap-3 rounded-2xl bg-gray-900 px-8 py-4 font-bold text-white transition-all hover:scale-105 dark:bg-white dark:text-gray-900"
+				>
+					<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"
+						><path
+							fill-rule="evenodd"
+							d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+							clip-rule="evenodd"
+						/></svg
 					>
-						{#if plan.featured}
-							<div
-								class="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-blue-600 px-4 py-1 text-xs font-bold tracking-widest text-white uppercase"
-							>
-								Most Popular
-							</div>
-						{/if}
-						<div class="mb-2 text-xl font-bold text-gray-900 dark:text-white">{plan.name}</div>
-						<div class="mb-8 flex items-baseline gap-1">
-							<span class="text-4xl font-black text-gray-900 dark:text-white">${plan.price}</span>
-							<span class="text-sm text-gray-400">/mo</span>
-						</div>
-						<ul class="mb-10 space-y-4">
-							{#each plan.features as f}
-								<li class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
-									<svg
-										class="h-5 w-5 text-blue-500"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke="currentColor"
-										><path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											stroke-width="2"
-											d="M5 13l4 4L19 7"
-										/></svg
-									>
-									{f}
-								</li>
-							{/each}
-						</ul>
-						<button
-							class="w-full rounded-xl py-4 font-bold transition-all {plan.featured
-								? 'bg-blue-600 text-white hover:bg-blue-700'
-								: 'bg-gray-100 text-gray-900 hover:bg-gray-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700'}"
-						>
-							{plan.btn}
-						</button>
-					</div>
-				{/each}
+					Star on GitHub
+				</a>
 			</div>
 		</div>
 	</section>

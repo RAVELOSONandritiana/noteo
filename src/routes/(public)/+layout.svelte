@@ -23,14 +23,14 @@
 		class="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-800 dark:bg-gray-950/80"
 	>
 		<div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-			<div class="flex items-center gap-2">
+			<a href="/" class="flex items-center gap-2 transition-opacity hover:opacity-80">
 				<div
-					class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 font-bold text-white"
+					class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 font-bold text-white shadow-lg shadow-blue-500/20"
 				>
 					N
 				</div>
 				<span class="text-xl font-bold tracking-tight">Noteo</span>
-			</div>
+			</a>
 
 			<nav class="hidden items-center gap-8 md:flex">
 				{#each navLinks as link}
@@ -50,7 +50,7 @@
 			<div class="flex items-center gap-4">
 				<ThemeToggle />
 				<a
-					href="/login"
+					href="/signup"
 					class="hidden items-center justify-center rounded-full bg-blue-600 px-6 py-2 text-sm font-semibold text-white transition-all hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/30 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none active:scale-95 sm:inline-flex"
 				>
 					Get Started
@@ -130,12 +130,12 @@
 							Product
 						</h3>
 						<ul class="space-y-4">
-							{#each ['Features', 'Pricing', 'AI Capabilities', 'Desktop App', 'Mobile (Beta)'] as link}
+							{#each [{ n: 'Features', h: '/features' }, { n: 'AI Capabilities', h: '/ai-capabilities' }, { n: 'Desktop App', h: '#' }, { n: 'Mobile (Beta)', h: '#' }] as link}
 								<li>
 									<a
-										href="#"
+										href={link.h}
 										class="text-sm text-gray-500 transition-colors hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-200"
-										>{link}</a
+										>{link.n}</a
 									>
 								</li>
 							{/each}
@@ -148,12 +148,12 @@
 							Company
 						</h3>
 						<ul class="space-y-4">
-							{#each ['About Us', 'Our Vision', 'Careers', 'Contact', 'Blog'] as link}
+							{#each [{ n: 'About Us', h: '/about' }, { n: 'Our Vision', h: '/our-vision' }, { n: 'Careers', h: '/careers' }, { n: 'Contact', h: '/contact' }, { n: 'Blog', h: '/blog' }] as link}
 								<li>
 									<a
-										href="/{link.toLowerCase().replace(' ', '-')}"
+										href={link.h}
 										class="text-sm text-gray-500 transition-colors hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-200"
-										>{link}</a
+										>{link.n}</a
 									>
 								</li>
 							{/each}
@@ -166,12 +166,12 @@
 							Resources
 						</h3>
 						<ul class="space-y-4">
-							{#each ['Help Center', 'API Docs', 'Security', 'Privacy Policy', 'Terms of Service'] as link}
+							{#each [{ n: 'Help Center', h: '/help-center' }, { n: 'API Docs', h: '/api-docs' }, { n: 'Security', h: '/security' }, { n: 'Privacy Policy', h: '/privacy-policy' }, { n: 'Terms of Service', h: '/terms-of-service' }] as link}
 								<li>
 									<a
-										href="#"
+										href={link.h}
 										class="text-sm text-gray-500 transition-colors hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-200"
-										>{link}</a
+										>{link.n}</a
 									>
 								</li>
 							{/each}

@@ -1,86 +1,128 @@
-<div class="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8 dark:bg-gray-950">
-	<div class="mx-auto max-w-2xl text-center">
-		<h2 class="text-base leading-7 font-semibold text-blue-600 dark:text-blue-400">Get in touch</h2>
-		<p class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl dark:text-white">
-			Contact our team
-		</p>
-		<p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-400">
-			Have questions about Noteo? We're here to help you get the most out of your AI note-taking
-			experience.
-		</p>
+<script lang="ts">
+	let formState = $state({ name: '', email: '', message: '' });
+</script>
+
+<div class="relative isolate overflow-hidden py-24 sm:py-32">
+	<!-- Decorative background -->
+	<div class="absolute inset-0 -z-10 bg-white transition-colors duration-500 dark:bg-gray-950">
+		<div
+			class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+			aria-hidden="true"
+		>
+			<div
+				class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#3b82f6] to-[#818cf8] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+				style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
+			></div>
+		</div>
 	</div>
 
-	<div class="mx-auto mt-16 max-w-xl sm:mt-20">
-		<form action="#" method="POST" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+	<div class="mx-auto max-w-7xl px-6 lg:px-8">
+		<div class="grid grid-cols-1 items-center gap-24 lg:grid-cols-2">
+			<!-- Contact Content -->
 			<div>
-				<label
-					for="first-name"
-					class="block text-sm leading-6 font-semibold text-gray-900 dark:text-white"
-					>First name</label
-				>
-				<div class="mt-2.5">
-					<input
-						type="text"
-						name="first-name"
-						id="first-name"
-						autocomplete="given-name"
-						class="block w-full rounded-lg border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-blue-600 focus:ring-inset sm:text-sm sm:leading-6 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:focus:ring-blue-500"
-					/>
+				<h2 class="mb-6 text-xs font-bold tracking-widest text-blue-600 uppercase">Contact Us</h2>
+				<h1 class="mb-8 text-4xl font-black text-gray-900 sm:text-6xl dark:text-white">
+					Let's <span class="text-blue-600">talk</span>.
+				</h1>
+				<p class="mb-12 max-w-md text-lg text-gray-600 dark:text-gray-400">
+					Whether you have a feature suggestion, found a bug, or want to collaborate on this
+					open-source project, we'd love to hear from you.
+				</p>
+
+				<div class="space-y-8">
+					<div class="flex gap-4">
+						<div
+							class="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-xl italic shadow-sm dark:bg-blue-900/30"
+						>
+							✉️
+						</div>
+						<div>
+							<h3 class="font-bold text-gray-900 dark:text-white">Email</h3>
+							<p class="text-blue-600">hello@noteo.inc</p>
+						</div>
+					</div>
+					<div class="flex gap-4">
+						<div
+							class="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-xl italic shadow-sm dark:bg-blue-900/30"
+						>
+							🐙
+						</div>
+						<div>
+							<h3 class="font-bold text-gray-900 dark:text-white">Open Source</h3>
+							<p class="text-blue-600">github.com/noteo/core</p>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div>
-				<label
-					for="last-name"
-					class="block text-sm leading-6 font-semibold text-gray-900 dark:text-white"
-					>Last name</label
+
+			<!-- Contact Form (Glassmorphism) -->
+			<div class="relative">
+				<div
+					class="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-blue-500 to-indigo-500 opacity-10 blur-2xl"
+				></div>
+				<div
+					class="relative rounded-[2.5rem] border border-white/20 bg-white/70 p-8 shadow-2xl backdrop-blur-xl sm:p-12 dark:border-white/10 dark:bg-gray-900/70"
 				>
-				<div class="mt-2.5">
-					<input
-						type="text"
-						name="last-name"
-						id="last-name"
-						autocomplete="family-name"
-						class="block w-full rounded-lg border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-blue-600 focus:ring-inset sm:text-sm sm:leading-6 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:focus:ring-blue-500"
-					/>
+					<form action="#" method="POST" class="space-y-6">
+						<div>
+							<label
+								for="name"
+								class="mb-2 ml-1 block text-sm font-bold text-gray-900 dark:text-white"
+								>Full Name</label
+							>
+							<input
+								type="text"
+								id="name"
+								bind:value={formState.name}
+								class="w-full rounded-2xl border border-gray-100 bg-white px-6 py-4 transition-all outline-none focus:border-transparent focus:ring-2 focus:ring-blue-600 dark:border-gray-800 dark:bg-gray-950"
+								placeholder="Your name"
+							/>
+						</div>
+						<div>
+							<label
+								for="email"
+								class="mb-2 ml-1 block text-sm font-bold text-gray-900 dark:text-white"
+								>Email Address</label
+							>
+							<input
+								type="email"
+								id="email"
+								bind:value={formState.email}
+								class="w-full rounded-2xl border border-gray-100 bg-white px-6 py-4 transition-all outline-none focus:border-transparent focus:ring-2 focus:ring-blue-600 dark:border-gray-800 dark:bg-gray-950"
+								placeholder="you@example.com"
+							/>
+						</div>
+						<div>
+							<label
+								for="message"
+								class="mb-2 ml-1 block text-sm font-bold text-gray-900 dark:text-white"
+								>Message</label
+							>
+							<textarea
+								id="message"
+								rows="4"
+								bind:value={formState.message}
+								class="w-full rounded-2xl border border-gray-100 bg-white px-6 py-4 transition-all outline-none focus:border-transparent focus:ring-2 focus:ring-blue-600 dark:border-gray-800 dark:bg-gray-950"
+								placeholder="How can we help you?"
+							></textarea>
+						</div>
+						<button
+							type="submit"
+							class="flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 py-5 font-black text-white shadow-xl shadow-blue-500/20 transition-all hover:scale-[1.02] hover:bg-blue-700 active:scale-95"
+						>
+							Send Message
+							<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+								><path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M14 5l7 7m0 0l-7 7m7-7H3"
+								/></svg
+							>
+						</button>
+					</form>
 				</div>
 			</div>
-			<div class="sm:col-span-2">
-				<label
-					for="email"
-					class="block text-sm leading-6 font-semibold text-gray-900 dark:text-white">Email</label
-				>
-				<div class="mt-2.5">
-					<input
-						type="email"
-						name="email"
-						id="email"
-						autocomplete="email"
-						class="block w-full rounded-lg border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-blue-600 focus:ring-inset sm:text-sm sm:leading-6 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:focus:ring-blue-500"
-					/>
-				</div>
-			</div>
-			<div class="sm:col-span-2">
-				<label
-					for="message"
-					class="block text-sm leading-6 font-semibold text-gray-900 dark:text-white">Message</label
-				>
-				<div class="mt-2.5">
-					<textarea
-						name="message"
-						id="message"
-						rows="4"
-						class="block w-full rounded-lg border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-blue-600 focus:ring-inset sm:text-sm sm:leading-6 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:focus:ring-blue-500"
-					></textarea>
-				</div>
-			</div>
-			<div class="sm:col-span-2">
-				<button
-					type="submit"
-					class="block w-full rounded-lg bg-blue-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-				>
-					Send message
-				</button>
-			</div>
-		</form>
+		</div>
 	</div>
 </div>
