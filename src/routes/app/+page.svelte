@@ -68,13 +68,13 @@
 	const styles = {
 		title: {
 			label: 'Titre',
-			class: 'text-4xl font-extrabold text-blue-400 mb-4 block',
-			color: '#60a5fa'
+			class: 'text-4xl font-extrabold text-blue-600 dark:text-blue-400 mb-4 block',
+			color: '#2563eb'
 		},
 		paragraph: {
 			label: 'Paragraphe',
-			class: 'text-lg text-neutral-300 leading-relaxed mb-2 block',
-			color: '#d4d4d4'
+			class: 'text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-2 block',
+			color: '#374151'
 		}
 	};
 
@@ -221,22 +221,26 @@
 	}
 </script>
 
-<div class="flex h-screen overflow-hidden bg-[#0a0a0a] text-white">
+<div
+	class="flex h-screen overflow-hidden bg-white text-gray-900 transition-colors duration-500 dark:bg-gray-950 dark:text-white"
+>
 	<!-- Sidebar: Organization -->
 	{#if showSidebar}
 		<aside
-			transition:fly={{ x: -300, duration: 300 }}
-			class="flex w-72 flex-col border-r border-white/5 bg-neutral-900/50 backdrop-blur-xl"
+			transition:fly={{ x: -288, duration: 400 }}
+			class="flex w-72 flex-col border-r border-gray-200 bg-gray-50 backdrop-blur-xl dark:border-gray-800 dark:bg-gray-900/50"
 		>
-			<div class="flex items-center justify-between border-b border-white/5 p-6">
+			<div
+				class="flex items-center justify-between border-b border-gray-200 p-6 dark:border-gray-800"
+			>
 				<h1
-					class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-xl font-bold text-transparent"
+					class="bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-xl font-black text-transparent"
 				>
-					Noteo Workspace
+					Noteo
 				</h1>
 				<button
 					onclick={createSubject}
-					class="rounded-lg p-1 text-xs hover:bg-white/10"
+					class="rounded-lg p-1.5 text-xs transition-colors hover:bg-gray-200 dark:hover:bg-white/10"
 					title="Ajouter une Matière"
 				>
 					➕
@@ -246,15 +250,15 @@
 				{#each subjects as subject}
 					<div class="mb-6">
 						<div
-							class="group mb-3 flex items-center justify-between px-2 text-xs font-bold tracking-widest text-neutral-500 uppercase"
+							class="group mb-3 flex items-center justify-between px-2 text-[10px] font-black tracking-widest text-gray-500 uppercase dark:text-neutral-500"
 						>
 							<input
 								bind:value={subject.title}
-								class="w-full border-none bg-transparent outline-none focus:text-neutral-300"
+								class="w-full border-none bg-transparent font-black outline-none focus:text-blue-600 dark:focus:text-blue-400"
 							/>
 							<button
 								onclick={() => createChapter(subject.id)}
-								class="rounded p-1 opacity-0 transition-all group-hover:opacity-100 hover:bg-white/10"
+								class="rounded p-1 opacity-0 transition-all group-hover:opacity-100 hover:bg-gray-200 dark:hover:bg-white/10"
 								title="Ajouter un Chapitre"
 							>
 								➕
@@ -264,38 +268,40 @@
 							{#each subject.chapters as chapter}
 								<div class="group">
 									<div
-										class="flex cursor-pointer items-center justify-between rounded-lg p-2 text-sm text-neutral-400 transition-colors hover:bg-white/5"
+										class="flex cursor-pointer items-center justify-between rounded-lg p-2 text-sm text-gray-600 transition-colors hover:bg-gray-200 dark:text-neutral-400 dark:hover:bg-white/5"
 									>
 										<div class="flex flex-1 items-center gap-2">
-											<span class="text-blue-500/50">📁</span>
+											<span class="text-blue-600/50 dark:text-blue-500/50">📁</span>
 											<input
 												bind:value={chapter.title}
-												class="w-full cursor-pointer border-none bg-transparent outline-none focus:text-white"
+												class="w-full cursor-pointer border-none bg-transparent font-medium outline-none focus:text-gray-900 dark:focus:text-white"
 											/>
 										</div>
 										<button
 											onclick={() => createNote(chapter.id)}
-											class="rounded p-1 opacity-0 transition-all group-hover:opacity-100 hover:bg-white/10"
+											class="rounded p-1 opacity-0 transition-all group-hover:opacity-100 hover:bg-gray-300 dark:hover:bg-white/10"
 											title="Ajouter une Note"
 										>
 											➕
 										</button>
 									</div>
-									<div class="mt-1 ml-4 space-y-1 border-l border-white/5 pl-2">
+									<div
+										class="mt-1 ml-4 space-y-1 border-l border-gray-200 pl-2 dark:border-white/5"
+									>
 										{#each chapter.notes as note}
 											<div class="group/note flex items-center justify-between gap-1">
 												<button
 													onclick={() => (activeNoteId = note.id)}
 													class="flex-1 rounded-lg p-2 text-left text-xs transition-all {activeNoteId ===
 													note.id
-														? 'border border-blue-500/20 bg-blue-500/10 text-blue-400'
-														: 'text-neutral-500 hover:bg-white/5 hover:text-neutral-300'}"
+														? 'border border-blue-600/20 bg-blue-600/10 font-bold text-blue-600 dark:text-blue-400'
+														: 'text-gray-500 hover:bg-gray-200 hover:text-gray-900 dark:text-neutral-500 dark:hover:bg-white/5 dark:hover:text-neutral-300'}"
 												>
 													{note.title}
 												</button>
 												<button
 													onclick={() => deleteNote(chapter.id, note.id)}
-													class="group-note/hover:opacity-100 p-1 text-[10px] opacity-0 hover:text-red-400"
+													class="group-note/hover:opacity-100 p-1 text-[10px] opacity-0 transition-opacity hover:text-red-500"
 												>
 													✕
 												</button>
@@ -315,52 +321,79 @@
 	<main class="relative flex flex-1 flex-col overflow-hidden">
 		<!-- Toolbar -->
 		<header
-			class="z-10 flex h-16 items-center justify-between border-b border-white/5 bg-neutral-900/30 px-6 backdrop-blur-sm"
+			class="z-10 flex h-16 items-center justify-between border-b border-gray-200 bg-white/80 px-6 backdrop-blur-md transition-colors dark:border-gray-800 dark:bg-gray-950/30"
 		>
 			<div class="flex items-center gap-4">
 				<button
 					onclick={() => (showSidebar = !showSidebar)}
-					class="rounded-lg border border-white/5 p-2 transition-colors hover:bg-white/5"
+					class="rounded-lg border border-gray-200 p-2 transition-colors hover:bg-gray-100 dark:border-white/5 dark:hover:bg-white/5"
 				>
 					{showSidebar ? '◀' : '▶'}
 				</button>
 
-				<div class="mx-2 h-6 w-px bg-white/5"></div>
+				<div class="mx-2 h-6 w-px bg-gray-200 dark:bg-gray-800"></div>
 
 				<div class="flex items-center gap-1">
 					<button
 						onclick={() => applyPreset('title')}
-						class="rounded-md border border-white/5 px-3 py-1.5 text-xs font-semibold hover:bg-white/10"
+						class="rounded-md border border-gray-200 px-3 py-1.5 text-[10px] font-black tracking-widest uppercase transition-all hover:bg-gray-100 dark:border-white/5 dark:hover:bg-white/10"
 						>Titre</button
 					>
 					<button
 						onclick={() => applyPreset('paragraph')}
-						class="rounded-md border border-white/5 px-3 py-1.5 text-xs font-semibold hover:bg-white/10"
+						class="rounded-md border border-gray-200 px-3 py-1.5 text-[10px] font-black tracking-widest uppercase transition-all hover:bg-gray-100 dark:border-white/5 dark:hover:bg-white/10"
 						>Paragraphe</button
 					>
 				</div>
 
-				<div class="mx-2 h-6 w-px bg-white/5"></div>
+				<div class="mx-2 h-6 w-px bg-gray-200 dark:bg-gray-800"></div>
+
+				<div class="flex items-center gap-1">
+					<button
+						onclick={() => execCommand('bold')}
+						class="rounded-md p-2 text-sm font-bold hover:bg-gray-100 dark:hover:bg-white/10"
+						>B</button
+					>
+					<button
+						onclick={() => execCommand('italic')}
+						class="rounded-md p-2 text-sm italic hover:bg-gray-100 dark:hover:bg-white/10">I</button
+					>
+					<div class="mx-1 h-4 w-px bg-gray-200 dark:bg-gray-800"></div>
+					<button
+						onclick={() => execCommand('justifyLeft')}
+						class="rounded-md p-2 hover:bg-gray-100 dark:hover:bg-white/10">≡</button
+					>
+					<button
+						onclick={() => execCommand('justifyCenter')}
+						class="rounded-md p-2 hover:bg-gray-100 dark:hover:bg-white/10">≣</button
+					>
+					<button
+						onclick={() => execCommand('justifyRight')}
+						class="rounded-md p-2 text-right hover:bg-gray-100 dark:hover:bg-white/10">≡</button
+					>
+				</div>
+
+				<div class="mx-2 h-6 w-px bg-gray-200 dark:bg-gray-800"></div>
 
 				<div class="relative">
 					<button
 						onclick={() => (showSymbolPicker = !showSymbolPicker)}
-						class="flex items-center gap-2 rounded-md border border-white/5 px-3 py-1.5 text-xs font-semibold hover:bg-white/10"
+						class="flex items-center gap-2 rounded-md border border-gray-200 px-3 py-1.5 text-[10px] font-black tracking-widest uppercase transition-all hover:bg-gray-100 dark:border-white/5 dark:hover:bg-white/10"
 					>
-						<span class="text-blue-400">Ω</span>
+						<span class="text-blue-600 dark:text-blue-400">Ω</span>
 						<span>Symboles</span>
 					</button>
 
 					{#if showSymbolPicker}
 						<div
 							transition:fade={{ duration: 100 }}
-							class="absolute top-full left-0 z-50 mt-2 w-64 overflow-hidden rounded-xl border border-white/10 bg-neutral-900 p-4 shadow-2xl"
+							class="absolute top-full left-0 z-50 mt-2 w-64 overflow-hidden rounded-xl border border-gray-200 bg-white p-4 shadow-2xl dark:border-gray-800 dark:bg-gray-900"
 						>
 							<div class="space-y-4">
 								{#each symbols as group}
 									<div>
 										<h3
-											class="mb-2 px-1 text-[10px] font-bold tracking-widest text-neutral-500 uppercase"
+											class="mb-2 px-1 text-[9px] font-black tracking-widest text-gray-400 uppercase dark:text-neutral-500"
 										>
 											{group.group}
 										</h3>
@@ -368,7 +401,7 @@
 											{#each group.items as symbol}
 												<button
 													onclick={() => insertSymbol(symbol)}
-													class="flex h-8 w-8 items-center justify-center rounded text-sm transition-colors hover:bg-white/10"
+													class="flex h-8 w-8 items-center justify-center rounded text-sm transition-colors hover:bg-gray-100 dark:hover:bg-white/10"
 												>
 													{symbol}
 												</button>
@@ -381,47 +414,24 @@
 					{/if}
 				</div>
 
-				<div class="mx-2 h-6 w-px bg-white/5"></div>
-
-				<div class="flex items-center gap-1">
-					<button
-						onclick={() => execCommand('bold')}
-						class="rounded-md p-2 text-sm font-bold hover:bg-white/10">B</button
-					>
-					<button
-						onclick={() => execCommand('italic')}
-						class="rounded-md p-2 text-sm italic hover:bg-white/10">I</button
-					>
-					<div class="mx-1 h-4 w-px bg-white/5"></div>
-					<button
-						onclick={() => execCommand('justifyLeft')}
-						class="rounded-md p-2 hover:bg-white/10">≡</button
-					>
-					<button
-						onclick={() => execCommand('justifyCenter')}
-						class="rounded-md p-2 hover:bg-white/10">≣</button
-					>
-					<button
-						onclick={() => execCommand('justifyRight')}
-						class="rounded-md p-2 text-right hover:bg-white/10">≡</button
-					>
-				</div>
-
-				<div class="mx-2 h-6 w-px bg-white/5"></div>
+				<div class="mx-2 h-6 w-px bg-gray-200 dark:bg-gray-800"></div>
 
 				<div class="flex items-center gap-2">
 					<input
 						type="color"
 						oninput={(e) => execCommand('foreColor', (e.target as HTMLInputElement).value)}
-						class="h-6 w-6 cursor-pointer rounded border-none bg-transparent"
+						class="h-6 w-6 cursor-pointer overflow-hidden rounded border border-gray-200 bg-transparent dark:border-gray-800"
 					/>
 				</div>
 			</div>
 
 			<div class="flex items-center gap-4">
-				<span class="text-xs text-neutral-500 italic">Auto-sauvegardé</span>
+				<span
+					class="text-[10px] font-bold tracking-tighter text-gray-400 uppercase italic dark:text-neutral-500"
+					>Auto-sauvegardé</span
+				>
 				<div
-					class="h-2 w-2 rounded-full bg-green-500/50 shadow-[0_0_8px_rgba(34,197,94,0.3)]"
+					class="h-1.5 w-1.5 rounded-full bg-blue-600 shadow-[0_0_8px_rgba(37,99,235,0.4)]"
 				></div>
 			</div>
 		</header>
@@ -429,23 +439,26 @@
 		<!-- Content Area -->
 		<div class="flex flex-1 overflow-hidden">
 			<!-- Editor -->
-			<div class="custom-scrollbar flex flex-1 justify-center overflow-y-auto p-12">
+			<div
+				class="custom-scrollbar flex flex-1 justify-center overflow-y-auto bg-gray-50/30 p-12 dark:bg-transparent"
+			>
 				<div class="min-h-full w-full max-w-4xl">
 					{#if activeNote}
 						<input
 							bind:value={activeNote.title}
-							class="mb-8 w-full border-none bg-transparent text-4xl font-bold text-neutral-100 outline-none placeholder:text-neutral-800"
+							class="mb-12 w-full border-none bg-transparent text-5xl font-black text-gray-900 transition-all outline-none placeholder:text-gray-200 focus:placeholder:opacity-50 dark:text-white dark:placeholder:text-gray-800"
 							placeholder="Titre de la note"
 						/>
 						<div
 							bind:this={editorElement}
 							contenteditable="true"
 							oninput={handleInput}
-							class="rich-editor min-h-[500px] w-full text-neutral-300 outline-none"
+							class="rich-editor min-h-[600px] w-full text-lg text-gray-700 outline-none selection:bg-blue-100 dark:text-neutral-300 dark:selection:bg-blue-900/40"
 						></div>
 					{:else}
-						<div class="flex h-full items-center justify-center text-neutral-600 italic">
-							Sélectionnez une note pour commencer
+						<div class="flex h-full flex-col items-center justify-center opacity-30 select-none">
+							<span class="mb-4 text-6xl">✍️</span>
+							<p class="text-sm font-black tracking-widest uppercase">Sélectionnez une note</p>
 						</div>
 					{/if}
 				</div>
@@ -453,22 +466,24 @@
 
 			<!-- AI Control Panel -->
 			<aside
-				class="flex w-80 flex-col gap-6 overflow-y-auto border-l border-white/5 bg-neutral-900/20 p-6 backdrop-blur-md"
+				class="flex w-80 flex-col gap-6 overflow-y-auto border-l border-gray-200 bg-gray-50/50 p-6 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/20"
 			>
 				<div>
-					<h2 class="mb-4 text-xs font-bold tracking-widest text-neutral-500 uppercase">
-						Outils IA
+					<h2
+						class="mb-4 text-[10px] font-black tracking-widest text-gray-400 uppercase dark:text-neutral-500"
+					>
+						Assistant Intelligent
 					</h2>
 					<div class="space-y-2">
 						{#each aiOptions as option}
 							<button
 								onclick={() => askAI(option)}
 								disabled={isProcessing}
-								class="group flex w-full items-center gap-3 rounded-xl border border-white/5 bg-white/5 px-4 py-3 text-left transition-all hover:border-blue-500/30 hover:bg-white/10 disabled:opacity-50"
+								class="group flex w-full items-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 text-left shadow-sm transition-all hover:border-blue-600 hover:shadow-blue-600/10 disabled:opacity-50 dark:border-white/5 dark:bg-white/5 dark:hover:border-blue-400"
 							>
 								<span class="text-xl transition-transform group-hover:scale-110">{option.icon}</span
 								>
-								<span class="text-xs font-semibold">{option.label}</span>
+								<span class="text-[10px] font-black tracking-widest uppercase">{option.label}</span>
 							</button>
 						{/each}
 					</div>
@@ -477,50 +492,53 @@
 				{#if aiResponse || isProcessing}
 					<div
 						transition:slide
-						class="flex min-h-[200px] flex-1 flex-col overflow-hidden rounded-2xl border border-blue-500/30 bg-neutral-900 shadow-2xl shadow-blue-500/5"
+						class="flex min-h-[250px] flex-1 flex-col overflow-hidden rounded-2xl border border-blue-600/30 bg-white shadow-2xl shadow-blue-600/5 dark:border-blue-400/30 dark:bg-gray-900 dark:shadow-blue-400/5"
 					>
 						<div
-							class="flex items-center justify-between border-b border-white/10 bg-blue-500/10 px-4 py-2"
+							class="flex items-center justify-between border-b border-gray-100 bg-blue-600/5 px-4 py-2 dark:border-white/10 dark:bg-blue-400/5"
 						>
-							<span class="text-[10px] font-bold tracking-tighter text-blue-400 uppercase"
-								>Assistant IA</span
+							<span
+								class="text-[9px] font-black tracking-widest text-blue-600 uppercase dark:text-blue-400"
+								>Réponse IA</span
 							>
 							{#if isProcessing}
 								<div class="flex gap-1">
-									<div class="h-1 w-1 animate-bounce rounded-full bg-blue-400"></div>
 									<div
-										class="h-1 w-1 animate-bounce rounded-full bg-blue-400 [animation-delay:0.2s]"
+										class="h-1 w-1 animate-bounce rounded-full bg-blue-600 dark:bg-blue-400"
 									></div>
 									<div
-										class="h-1 w-1 animate-bounce rounded-full bg-blue-400 [animation-delay:0.4s]"
+										class="h-1 w-1 animate-bounce rounded-full bg-blue-600 [animation-delay:0.2s] dark:bg-blue-400"
+									></div>
+									<div
+										class="h-1 w-1 animate-bounce rounded-full bg-blue-600 [animation-delay:0.4s] dark:bg-blue-400"
 									></div>
 								</div>
 							{/if}
 						</div>
 
 						<div
-							class="flex-1 overflow-y-auto p-4 text-xs leading-relaxed whitespace-pre-wrap text-neutral-300 italic"
+							class="flex-1 overflow-y-auto p-4 text-xs leading-relaxed whitespace-pre-wrap text-gray-600 italic dark:text-neutral-300"
 						>
 							{#if isProcessing}
-								<p class="text-neutral-500">Analyse en cours...</p>
+								<p class="text-gray-400 dark:text-neutral-500">Noteo analyse vos données...</p>
 							{:else}
 								{aiResponse}
 							{/if}
 						</div>
 
 						{#if !isProcessing && aiResponse}
-							<div class="flex flex-col gap-2 border-t border-white/10 p-3">
+							<div class="flex flex-col gap-2 border-t border-gray-100 p-3 dark:border-white/10">
 								<button
 									onclick={() => appendToNote('paragraph')}
-									class="w-full rounded-lg border border-blue-500/30 bg-blue-600/20 py-2 text-[10px] font-bold text-blue-400 transition-all hover:bg-blue-600 hover:text-white"
+									class="w-full rounded-lg border border-blue-600/30 bg-blue-600/10 py-2 text-[9px] font-black tracking-widest text-blue-600 uppercase transition-all hover:bg-blue-600 hover:text-white dark:bg-blue-600/20 dark:text-blue-400"
 								>
-									Ajouter comme Paragraphe
+									En tant que Paragraphe
 								</button>
 								<button
 									onclick={() => appendToNote('title')}
-									class="w-full rounded-lg border border-purple-500/30 bg-purple-600/20 py-2 text-[10px] font-bold text-purple-400 transition-all hover:bg-purple-600 hover:text-white"
+									class="w-full rounded-lg border border-indigo-600/30 bg-indigo-600/10 py-2 text-[9px] font-black tracking-widest text-indigo-600 uppercase transition-all hover:bg-indigo-600 hover:text-white dark:bg-indigo-600/20 dark:text-indigo-400"
 								>
-									Ajouter comme Titre
+									En tant que Titre
 								</button>
 							</div>
 						{/if}
@@ -533,30 +551,36 @@
 
 <style>
 	:global(body) {
-		background-color: #0a0a0a;
+		background-color: #ffffff;
 		overflow: hidden;
+		transition: background-color 0.5s ease;
+	}
+
+	:global(.dark body) {
+		background-color: #030712; /* gray-950 */
 	}
 
 	.rich-editor :global(h2) {
-		margin-bottom: 1rem;
-		font-size: 1.5rem;
-		font-weight: 700;
-		color: #60a5fa;
+		margin-bottom: 1.5rem;
+		font-size: 1.875rem;
+		line-height: 2.25rem;
+		font-weight: 900;
+		letter-spacing: -0.025em;
 	}
 
 	.rich-editor :global(p) {
-		margin-bottom: 1rem;
-		line-height: 1.625;
+		margin-bottom: 1.25rem;
+		line-height: 1.75;
 	}
 
 	.rich-editor :global(ul) {
-		margin-bottom: 1rem;
+		margin-bottom: 1.25rem;
 		margin-left: 1.5rem;
 		list-style-type: disc;
 	}
 
 	.custom-scrollbar::-webkit-scrollbar {
-		width: 4px;
+		width: 3px;
 	}
 
 	.custom-scrollbar::-webkit-scrollbar-track {
@@ -564,19 +588,19 @@
 	}
 
 	.custom-scrollbar::-webkit-scrollbar-thumb {
-		background: rgba(255, 255, 255, 0.05);
+		background: rgba(0, 0, 0, 0.1);
 		border-radius: 10px;
 	}
 
-	.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-		background: rgba(255, 255, 255, 0.1);
+	:global(.dark) .custom-scrollbar::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.05);
 	}
 
 	input[type='color']::-webkit-color-swatch-wrapper {
 		padding: 0;
 	}
 	input[type='color']::-webkit-color-swatch {
-		border: 1px solid rgba(255, 255, 255, 0.1);
+		border: none;
 		border-radius: 4px;
 	}
 </style>
