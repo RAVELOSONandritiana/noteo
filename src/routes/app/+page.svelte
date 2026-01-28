@@ -57,6 +57,7 @@
 	let showExportMenu = $state(false);
 	let imagePrompt = $state('');
 	let isGeneratingImage = $state(false);
+	let selectedImage = $state<HTMLImageElement | null>(null);
 
 	const symbols = [
 		{
@@ -219,7 +220,8 @@
 			const image = await puter.ai.txt2img(imagePrompt);
 			const imgUrl = image.src;
 			if (activeNote) {
-				activeNote.content += `<div class="my-6 flex justify-center"><img src="${imgUrl}" alt="${imagePrompt}" class="rounded-2xl shadow-2xl max-w-full border border-gray-200 dark:border-gray-800" /></div>`;
+				const imgTag = `<img src="${imgUrl}" alt="${imagePrompt}" class="editor-image rounded-2xl shadow-2xl max-w-full border border-gray-200 dark:border-gray-800 transition-all cursor-pointer hover:ring-2 hover:ring-blue-600" />`;
+				activeNote.content += `<div class="my-6 flex justify-center">${imgTag}</div>`;
 				if (editorElement) editorElement.innerHTML = activeNote.content;
 			}
 			imagePrompt = '';
@@ -227,6 +229,37 @@
 			console.error('Puter Image error:', error);
 		} finally {
 			isGeneratingImage = false;
+		}
+	}
+
+	function handleEditorClick(e: MouseEvent) {
+		const target = e.target as HTMLElement;
+		if (target.tagName === 'IMG') {
+			selectedImage = target as HTMLImageElement;
+			// Highlight the parent div context if needed
+		} else {
+			selectedImage = null;
+		}
+	}
+
+	function alignImage(alignment: 'left' | 'center' | 'right') {
+		if (!selectedImage) return;
+		const parent = selectedImage.parentElement;
+		if (parent && parent.className.includes('flex')) {
+			if (alignment === 'left') {
+				parent.className = 'my-6 flex justify-start';
+				selectedImage.className =
+					selectedImage.className.replace(/float-\w+/, '').trim() + ' max-w-[60%]';
+			} else if (alignment === 'center') {
+				parent.className = 'my-6 flex justify-center';
+				selectedImage.className =
+					selectedImage.className.replace(/float-\w+/, '').trim() + ' max-w-full';
+			} else if (alignment === 'right') {
+				parent.className = 'my-6 flex justify-end';
+				selectedImage.className =
+					selectedImage.className.replace(/float-\w+/, '').trim() + ' max-w-[60%]';
+			}
+			if (activeNote && editorElement) activeNote.content = editorElement.innerHTML;
 		}
 	}
 
@@ -406,6 +439,40 @@
 
 				<div class="mx-2 h-6 w-px bg-gray-200 dark:bg-gray-800"></div>
 
+				{#if selectedImage}
+					<div
+						transition:fade
+						class="flex items-center gap-1 rounded-lg border border-blue-600/20 bg-blue-600/5 p-1 dark:bg-blue-400/5"
+					>
+						<button
+							onclick={() => alignImage('left')}
+							class="rounded-md p-2 text-xs hover:bg-blue-600/10"
+							title="Aligner à gauche">左</button
+						>
+						<button
+							onclick={() => alignImage('center')}
+							class="rounded-md p-2 text-xs hover:bg-blue-600/10"
+							title="Centrer">中</button
+						>
+						<button
+							onclick={() => alignImage('right')}
+							class="rounded-md p-2 text-xs hover:bg-blue-600/10"
+							title="Aligner à droite">右</button
+						>
+						<div class="mx-1 h-4 w-px bg-blue-600/20"></div>
+						<button
+							onclick={() => {
+								selectedImage?.parentElement?.remove();
+								selectedImage = null;
+								if (activeNote && editorElement) activeNote.content = editorElement.innerHTML;
+							}}
+							class="rounded-md p-2 text-xs text-red-500 hover:bg-red-500/10"
+							title="Supprimer l'image">✕</button
+						>
+					</div>
+					<div class="mx-2 h-6 w-px bg-gray-200 dark:bg-gray-800"></div>
+				{/if}
+
 				<div class="flex items-center gap-1">
 					<button
 						onclick={() => applyPreset('title')}
@@ -568,6 +635,7 @@
 							bind:this={editorElement}
 							contenteditable="true"
 							oninput={handleInput}
+							onclick={handleEditorClick}
 							class="rich-editor min-h-[600px] w-full text-lg text-gray-700 outline-none selection:bg-blue-100 dark:text-neutral-300 dark:selection:bg-blue-900/40"
 						></div>
 					{:else}
