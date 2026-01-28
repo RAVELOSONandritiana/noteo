@@ -111,10 +111,10 @@
 						>
 					</a>
 					<a
-						href="#how"
+						href="/app"
 						class="flex items-center gap-2 font-semibold text-gray-900 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
 					>
-						Watch Demo
+						Try Demo Now
 						<span
 							class="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900"
 							><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"
