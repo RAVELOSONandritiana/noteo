@@ -12,6 +12,9 @@ export default defineConfig({
 		devtoolsJson(),
 		paraglideVitePlugin({ project: './project.inlang', outdir: './src/lib/paraglide' })
 	],
+	server: {
+		allowedHosts: ['noteo.loca.lt']
+	},
 	test: {
 		expect: { requireAssertions: true },
 		projects: [

@@ -54,6 +54,9 @@
 	let editorElement = $state<HTMLDivElement | null>(null);
 	let showSidebar = $state(true);
 	let showSymbolPicker = $state(false);
+	let showExportMenu = $state(false);
+	let imagePrompt = $state('');
+	let isGeneratingImage = $state(false);
 
 	const symbols = [
 		{
@@ -206,6 +209,76 @@
 				activeNoteId = '';
 			}
 		}
+	}
+
+	async function generateImage() {
+		if (!imagePrompt.trim()) return;
+		isGeneratingImage = true;
+		try {
+			// @ts-ignore
+			const image = await puter.ai.txt2img(imagePrompt);
+			const imgUrl = image.src;
+			if (activeNote) {
+				activeNote.content += `<div class="my-6 flex justify-center"><img src="${imgUrl}" alt="${imagePrompt}" class="rounded-2xl shadow-2xl max-w-full border border-gray-200 dark:border-gray-800" /></div>`;
+				if (editorElement) editorElement.innerHTML = activeNote.content;
+			}
+			imagePrompt = '';
+		} catch (error) {
+			console.error('Puter Image error:', error);
+		} finally {
+			isGeneratingImage = false;
+		}
+	}
+
+	function exportNote(format: 'md' | 'html' | 'pdf') {
+		if (!activeNote) return;
+
+		let content = '';
+		let filename = `${activeNote.title.replace(/\s+/g, '_').toLowerCase()}`;
+		let type = '';
+
+		if (format === 'md') {
+			// Basic HTML to MD conversion
+			content = `# ${activeNote.title}\n\n${activeNote.content
+				.replace(/<h2>(.*?)<\/h2>/g, '## $1\n')
+				.replace(/<p>(.*?)<\/p>/g, '$1\n\n')
+				.replace(/<br\s*\/?>/g, '\n')
+				.replace(/<\/?[^>]+(>|$)/g, '')}`;
+			type = 'text/markdown';
+			filename += '.md';
+		} else if (format === 'html') {
+			content = `
+				<!DOCTYPE html>
+				<html>
+				<head>
+					<title>${activeNote.title}</title>
+					<style>
+						body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; color: #333; }
+						h1 { color: #2563eb; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+						h2 { color: #2563eb; margin-top: 30px; }
+					</style>
+				</head>
+				<body>
+					<h1>${activeNote.title}</h1>
+					${activeNote.content}
+				</body>
+				</html>
+			`;
+			type = 'text/html';
+			filename += '.html';
+		} else if (format === 'pdf') {
+			window.print();
+			return;
+		}
+
+		const blob = new Blob([content], { type });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = filename;
+		a.click();
+		URL.revokeObjectURL(url);
+		showExportMenu = false;
 	}
 
 	$effect(() => {
@@ -426,13 +499,55 @@
 			</div>
 
 			<div class="flex items-center gap-4">
-				<span
-					class="text-[10px] font-bold tracking-tighter text-gray-400 uppercase italic dark:text-neutral-500"
-					>Auto-sauvegardé</span
-				>
-				<div
-					class="h-1.5 w-1.5 rounded-full bg-blue-600 shadow-[0_0_8px_rgba(37,99,235,0.4)]"
-				></div>
+				<div class="relative">
+					<button
+						onclick={() => (showExportMenu = !showExportMenu)}
+						class="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-[10px] font-black tracking-widest text-white uppercase shadow-lg shadow-blue-600/20 transition-all hover:bg-blue-700 active:scale-95"
+					>
+						<span>Exporter</span>
+						<span>↓</span>
+					</button>
+
+					{#if showExportMenu}
+						<div
+							transition:fade={{ duration: 100 }}
+							class="absolute top-full right-0 z-50 mt-2 w-48 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-800 dark:bg-gray-900"
+						>
+							<div class="p-1">
+								<button
+									onclick={() => exportNote('pdf')}
+									class="flex w-full items-center gap-3 px-4 py-3 text-left text-xs font-bold text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5"
+								>
+									<span>📄</span> PDF / Imprimer
+								</button>
+								<button
+									onclick={() => exportNote('md')}
+									class="flex w-full items-center gap-3 px-4 py-3 text-left text-xs font-bold text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5"
+								>
+									<span>Markdown</span> .md
+								</button>
+								<button
+									onclick={() => exportNote('html')}
+									class="flex w-full items-center gap-3 px-4 py-3 text-left text-xs font-bold text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5"
+								>
+									<span>HTML</span> .html
+								</button>
+							</div>
+						</div>
+					{/if}
+				</div>
+
+				<div class="mx-2 hidden h-6 w-px bg-gray-200 sm:block dark:bg-gray-800"></div>
+
+				<div class="hidden items-center gap-4 sm:flex">
+					<span
+						class="text-[10px] font-bold tracking-tighter text-gray-400 uppercase italic dark:text-neutral-500"
+						>Auto-sauvegardé</span
+					>
+					<div
+						class="h-1.5 w-1.5 rounded-full bg-blue-600 shadow-[0_0_8px_rgba(37,99,235,0.4)]"
+					></div>
+				</div>
 			</div>
 		</header>
 
@@ -492,7 +607,7 @@
 				{#if aiResponse || isProcessing}
 					<div
 						transition:slide
-						class="flex min-h-[250px] flex-1 flex-col overflow-hidden rounded-2xl border border-blue-600/30 bg-white shadow-2xl shadow-blue-600/5 dark:border-blue-400/30 dark:bg-gray-900 dark:shadow-blue-400/5"
+						class="flex min-h-[250px] flex-col overflow-hidden rounded-2xl border border-blue-600/30 bg-white shadow-2xl shadow-blue-600/5 dark:border-blue-400/30 dark:bg-gray-900 dark:shadow-blue-400/5"
 					>
 						<div
 							class="flex items-center justify-between border-b border-gray-100 bg-blue-600/5 px-4 py-2 dark:border-white/10 dark:bg-blue-400/5"
@@ -544,12 +659,85 @@
 						{/if}
 					</div>
 				{/if}
+
+				<!-- Image Generation -->
+				<div class="mt-auto border-t border-gray-200 pt-6 dark:border-gray-800">
+					<h2
+						class="mb-4 text-[10px] font-black tracking-widest text-gray-400 uppercase dark:text-neutral-500"
+					>
+						Générateur d'Images
+					</h2>
+					<div class="flex flex-col gap-3">
+						<textarea
+							bind:value={imagePrompt}
+							placeholder="Décrivez l'image que vous souhaitez générer..."
+							class="w-full resize-none rounded-xl border border-gray-200 bg-white p-3 text-xs transition-all outline-none focus:border-blue-600 dark:border-gray-800 dark:bg-gray-900 dark:focus:border-blue-400"
+							rows="3"
+						></textarea>
+						<button
+							onclick={generateImage}
+							disabled={isGeneratingImage || !imagePrompt.trim()}
+							class="w-full rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 py-3 text-[10px] font-black tracking-widest text-white uppercase shadow-lg shadow-blue-600/20 transition-all hover:scale-[1.02] active:scale-95 disabled:scale-100 disabled:opacity-50"
+						>
+							{#if isGeneratingImage}
+								Génération...
+							{:else}
+								Générer et Insérer 🎨
+							{/if}
+						</button>
+					</div>
+				</div>
 			</aside>
 		</div>
 	</main>
 </div>
 
 <style>
+	@media print {
+		header,
+		aside,
+		.rich-editor {
+			display: block;
+		}
+		header,
+		aside,
+		[class*='ai-'],
+		[class*='toolbar'] {
+			display: none !important;
+		}
+		main {
+			display: block !important;
+			padding: 0 !important;
+			width: 100% !important;
+			height: auto !important;
+			position: static !important;
+		}
+		.custom-scrollbar {
+			overflow: visible !important;
+			height: auto !important;
+		}
+		.rich-editor {
+			min-height: auto !important;
+			color: black !important;
+		}
+		input {
+			border: none !important;
+			padding: 0 !important;
+			font-size: 24pt !important;
+			color: black !important;
+			width: 100% !important;
+			margin-bottom: 2rem !important;
+		}
+		body {
+			background: white !important;
+			print-color-adjust: exact;
+		}
+		.max-w-4xl {
+			max-width: none !important;
+			width: 100% !important;
+		}
+	}
+
 	:global(body) {
 		background-color: #ffffff;
 		overflow: hidden;
